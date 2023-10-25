@@ -15,6 +15,10 @@ class StarWarsAPI {
       },
     });
   };
+
+  getPlanet = async (planetNumber: number) => {
+    return axios.get(`${this.URL}/planets/${planetNumber}`);
+  };
 }
 
 export const starWarsApi = new StarWarsAPI();
