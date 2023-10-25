@@ -7,8 +7,13 @@ class StarWarsAPI {
     this.URL = 'https://swapi.dev/api/';
   }
 
-  getPlanets = async () => {
-    return axios.get(`${this.URL}/planets`);
+  getPlanets = async (pageNumber: number, searchParam?: string) => {
+    return axios.get(`${this.URL}/planets`, {
+      params: {
+        page: pageNumber,
+        search: searchParam,
+      },
+    });
   };
 }
 
