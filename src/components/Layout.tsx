@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Layout } from './components/Layout';
+import { Main } from '../pages/main';
 
-export class App extends Component {
+export class Layout extends Component {
   render(): React.ReactNode {
     return (
       <>
-        <Layout />
+        <Main />
       </>
     );
   }
