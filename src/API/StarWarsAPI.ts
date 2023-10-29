@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Planet } from './types';
 
 class StarWarsAPI {
   URL: string;
@@ -7,17 +8,22 @@ class StarWarsAPI {
     this.URL = 'https://swapi.dev/api/';
   }
 
-  getPlanets = async (pageNumber: number, searchParam?: string) => {
-    return axios.get(`${this.URL}/planets`, {
+  getPlanets = async (
+    pageNumber: number,
+    searchParam?: string,
+  ): Promise<Planet[]> => {
+    const response = await axios.get(`${this.URL}/planets`, {
       params: {
         page: pageNumber,
         search: searchParam,
       },
     });
+    return response.data.results;
   };
 
-  getPlanet = async (planetNumber: number) => {
-    return axios.get(`${this.URL}/planets/${planetNumber}`);
+  getPlanet = async (planetNumber: number): Promise<Planet> => {
+    const response = await axios.get(`${this.URL}/planets/${planetNumber}`);
+    return response.data;
   };
 }
 

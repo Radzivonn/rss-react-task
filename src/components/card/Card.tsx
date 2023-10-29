@@ -1,9 +1,9 @@
 import { Component } from 'react';
 import './style.scss';
-import { CardProps } from './types';
+import { Props } from './types';
 import imagePath from '../../assets/img/planet.webp';
 
-export class Card extends Component<CardProps> {
+export class Card extends Component<Props> {
   render(): React.ReactNode {
     return (
       <div className="content-card">
