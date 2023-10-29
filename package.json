@@ -1,5 +1,5 @@
 {
-  "name": "react-messanger",
+  "name": "react-messenger",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "fix": "prettier --write src/**/*.ts{,x}",
+    "format:fix": "prettier --write src/**/*.ts{,x}",
     "preview": "vite preview",
     "prepare": "husky install"
   },
@@ -15,6 +15,7 @@
     "axios": "^1.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.4.5",
     "react-router-dom": "^6.14.2"
   },
   "devDependencies": {
