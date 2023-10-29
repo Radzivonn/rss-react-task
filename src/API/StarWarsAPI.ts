@@ -12,17 +12,27 @@ class StarWarsAPI {
     pageNumber: number,
     searchParam?: string,
   ): Promise<Planet[]> => {
-    const response = await axios.get(`${this.URL}/planets`, {
-      params: {
-        page: pageNumber,
-        search: searchParam,
-      },
-    });
+    const response = await axios
+      .get(`${this.URL}/planets`, {
+        params: {
+          page: pageNumber,
+          search: searchParam,
+        },
+      })
+      .catch((error) => {
+        console.error(error);
+        throw new Error(error);
+      });
     return response.data.results;
   };
 
   getPlanet = async (planetNumber: number): Promise<Planet> => {
-    const response = await axios.get(`${this.URL}/planets/${planetNumber}`);
+    const response = await axios
+      .get(`${this.URL}/planets/${planetNumber}`)
+      .catch((error) => {
+        console.error(error);
+        throw new Error(error);
+      });
     return response.data;
   };
 }
