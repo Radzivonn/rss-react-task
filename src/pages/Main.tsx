@@ -7,11 +7,45 @@ import { Props, State } from './types';
 import { TailSpin } from 'react-loader-spinner';
 
 export class Main extends Component<Props, State> {
-  state = { isErrorButtonClicked: false, planets: [] };
+  state = {
+    isErrorButtonClicked: false,
+    planets: [],
+    pageNumber: 1,
+    searchParam: localStorage.getItem('SearchParam') ?? '',
+  };
+
+  async getPlanets(searchParam: string) {
+    this.setState({
+      searchParam,
+      planets: [],
+    });
+  }
+
+  async componentDidUpdate(
+    prevProps: Readonly<Props>,
+    prevState: Readonly<State>,
+  ) {
+    if (
+      this.state.searchParam !== prevState.searchParam &&
+      !this.state.planets.length
+    ) {
+      localStorage.setItem('SearchParam', this.state.searchParam);
+      const planets = await starWarsApi.getPlanets(
+        this.state.pageNumber,
+        this.state.searchParam,
+      );
+      this.setState({
+        planets,
+      });
+    }
+  }
 
   async componentDidMount() {
     this.setState({
-      planets: await starWarsApi.getPlanets(1),
+      planets: await starWarsApi.getPlanets(
+        this.state.pageNumber,
+        this.state.searchParam,
+      ),
     });
   }
 
@@ -21,7 +55,10 @@ export class Main extends Component<Props, State> {
 
     return (
       <main className="page-content">
-        <SearchField />
+        <SearchField
+          onSearch={this.getPlanets.bind(this)}
+          disabled={!this.state.planets.length}
+        />
         {this.state.planets.length ? (
           <SearchContent planets={this.state.planets} />
         ) : (

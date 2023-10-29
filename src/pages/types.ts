@@ -7,4 +7,6 @@ export interface Props {
 export interface State {
   isErrorButtonClicked: boolean;
   planets: Planet[];
+  pageNumber: number;
+  searchParam: string;
 }
