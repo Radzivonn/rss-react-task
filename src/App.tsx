@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { Layout } from './components/Layout';
+import './styles/App.scss';
 
-function App() {
-  return <></>;
+export class App extends Component {
+  render(): React.ReactNode {
+    return (
+      <>
+        <Layout />
+      </>
+    );
+  }
 }
-
-export default App;
