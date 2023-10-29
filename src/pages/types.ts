@@ -1,7 +1,8 @@
+import { ReactNode } from 'react';
 import { Planet } from '../API/types';
 
 export interface Props {
-  children: ChildNode;
+  children?: ReactNode;
 }
 
 export interface State {
