@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { Planet } from './types';
+import { PLANETS_PER_PAGE } from '../constants/constants';
 
 class StarWarsAPI {
   URL: string;
+  pagesAmount: number;
 
   constructor() {
     this.URL = 'https://swapi.dev/api/';
+    this.pagesAmount = 0;
   }
 
   getPlanets = async (
@@ -23,6 +26,7 @@ class StarWarsAPI {
         console.error(error);
         throw new Error(error);
       });
+    this.pagesAmount = Math.ceil(response.data.count / PLANETS_PER_PAGE);
     return response.data.results;
   };
 
