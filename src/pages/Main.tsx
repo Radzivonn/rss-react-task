@@ -6,11 +6,13 @@ import { starWarsApi } from '../API/StarWarsAPI';
 import { Props } from './types';
 import { TailSpin } from 'react-loader-spinner';
 import { Planet } from '../API/types';
+import { Pagination } from '../components/pagination/Pagination';
 
 export const Main: FC<Props> = () => {
   const [isErrorButtonClicked, setIsErrorButtonClicked] = useState(false);
   const [planets, setPlanets] = useState<Planet[]>([]);
-  const [pageNumber] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [pagesAmount, setPagesAmount] = useState(starWarsApi.pagesAmount);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParam, setSearchParam] = useState(
     localStorage.getItem('SearchParam') ?? '',
@@ -21,6 +23,7 @@ export const Main: FC<Props> = () => {
     void (async () => {
       localStorage.setItem('SearchParam', searchParam);
       setPlanets(await starWarsApi.getPlanets(pageNumber, searchParam));
+      setPagesAmount(starWarsApi.pagesAmount);
       setIsLoading(false);
     })();
   }, [pageNumber, searchParam]);
@@ -42,7 +45,14 @@ export const Main: FC<Props> = () => {
           visible={true}
         />
       ) : (
-        <SearchContent planets={planets} />
+        <>
+          <SearchContent planets={planets} />
+          <Pagination
+            currentPage={pageNumber}
+            pagesAmount={pagesAmount}
+            switchPage={setPageNumber}
+          />
+        </>
       )}
       <Button
         className="error-button"
