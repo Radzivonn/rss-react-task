@@ -1,30 +1,27 @@
-import React, { Component } from 'react';
+import React, { FC, useState } from 'react';
 import './style.scss';
 import { Input } from '../UI/Input/Input';
 import { Button } from '../UI/Button/Button';
-import { Props, State } from './types';
+import { Props } from './types';
 
-export class SearchField extends Component<Props, State> {
-  state = { searchParam: '' };
+export const SearchField: FC<Props> = ({ ...props }) => {
+  const [searchParam, setSearchParam] = useState(
+    localStorage.getItem('SearchParam') ?? '',
+  );
 
-  render(): React.ReactNode {
-    return (
-      <section className="search-field">
-        <Input
-          type="text"
-          onChange={(e) =>
-            this.setState({
-              searchParam: e.target.value.trim(),
-            })
-          }
-        />
-        <Button
-          onClick={() => this.props.onSearch(this.state.searchParam)}
-          disabled={this.props.disabled}
-        >
-          search
-        </Button>
-      </section>
-    );
-  }
-}
+  return (
+    <section className="search-field">
+      <Input
+        type="text"
+        value={searchParam}
+        onChange={(e) => setSearchParam(e.target.value.trim())}
+      />
+      <Button
+        onClick={() => props.onSearch(searchParam)}
+        disabled={props.disabled}
+      >
+        search
+      </Button>
+    </section>
+  );
+};
