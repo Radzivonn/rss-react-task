@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 
-export class Footer extends Component {
-  render(): React.ReactNode {
-    return <></>;
-  }
-}
+export const Footer: FC = () => {
+  return <></>;
+};

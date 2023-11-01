@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import './styles/App.scss';
 import { Layout } from './components/Layout';
-import { ErrorBoundary } from './components/ErrorBoundary';
+import { ErrorBoundary } from './components/errorBoundary/ErrorBoundary';
 
-export class App extends Component {
-  render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        <Layout />
-      </ErrorBoundary>
-    );
-  }
-}
+export const App: FC = () => {
+  return (
+    <ErrorBoundary>
+      <Layout />
+    </ErrorBoundary>
+  );
+};

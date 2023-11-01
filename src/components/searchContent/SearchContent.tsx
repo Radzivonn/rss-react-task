@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import './style.scss';
 import { Card } from '../card/Card';
 import { Props } from './types';
 
-export class SearchContent extends Component<Props> {
-  render(): React.ReactNode {
+export const SearchContent: FC<Props> = ({ ...props }) => {
+  if (props.planets.length) {
     return (
       <section className="search-content">
-        {this.props.planets.map((planet) => (
+        {props.planets.map((planet) => (
           <Card
             key={planet.name}
             name={planet.name}
@@ -16,5 +16,5 @@ export class SearchContent extends Component<Props> {
         ))}
       </section>
     );
-  }
-}
+  } else return <h1>nothing found for this request</h1>;
+};

@@ -1,12 +1,6 @@
-import { Component, ReactNode } from 'react';
-
-interface Props {
-  children?: ReactNode;
-}
-
-interface State {
-  hasError: boolean;
-}
+import { Component } from 'react';
+import { ErrorFallback } from './ErrorFallback';
+import { Props, State } from './types';
 
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
@@ -21,15 +15,9 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
-      return <h1> Something went wrong </h1>;
+      return <ErrorFallback />;
     }
 
     return this.props.children;
-  }
-}
-
-export class ErrorFallback extends Component<Props, State> {
-  render(): ReactNode {
-    return <h1 style={{ textAlign: 'center' }}> Something went wrong </h1>;
   }
 }
