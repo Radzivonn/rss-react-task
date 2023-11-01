@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 
-export class Header extends Component {
-  render(): React.ReactNode {
-    return <></>;
-  }
-}
+export const Header: FC = () => {
+  return <></>;
+};
