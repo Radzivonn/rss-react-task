@@ -1,12 +1,13 @@
-import React, { Component, ComponentProps } from 'react';
+import React, { FC, ComponentProps } from 'react';
 import './style.scss';
 
-export class Button extends Component<ComponentProps<'button'>> {
-  render(): React.ReactNode {
-    return (
-      <button {...this.props} type="button">
-        {this.props.children}
-      </button>
-    );
-  }
-}
+export const Button: FC<ComponentProps<'button'>> = ({
+  children,
+  ...props
+}) => {
+  return (
+    <button {...props} type="button">
+      {children}
+    </button>
+  );
+};

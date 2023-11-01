@@ -1,7 +1,5 @@
-import React, { Component, ComponentProps } from 'react';
+import React, { FC, ComponentProps } from 'react';
 
-export class Input extends Component<ComponentProps<'input'>> {
-  render(): React.ReactNode {
-    return <input {...this.props} className="" autoComplete="on" />;
-  }
-}
+export const Input: FC<ComponentProps<'input'>> = ({ ...props }) => {
+  return <input {...props} className="" autoComplete="on" />;
+};
