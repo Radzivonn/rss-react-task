@@ -1,87 +1,55 @@
-import React, { Component } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { SearchField } from '../components/searchField/SearchField';
 import { SearchContent } from '../components/searchContent/SearchContent';
 import { Button } from '../components/UI/Button/Button';
 import { starWarsApi } from '../API/StarWarsAPI';
-import { Props, State } from './types';
+import { Props } from './types';
 import { TailSpin } from 'react-loader-spinner';
+import { Planet } from '../API/types';
 
-export class Main extends Component<Props, State> {
-  state = {
-    isErrorButtonClicked: false,
-    planets: [],
-    pageNumber: 1,
-    searchParam: localStorage.getItem('SearchParam') ?? '',
-  };
+export const Main: FC<Props> = () => {
+  const [isErrorButtonClicked, setIsErrorButtonClicked] = useState(false);
+  const [planets, setPlanets] = useState<Planet[]>([]);
+  const [pageNumber] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [searchParam, setSearchParam] = useState(
+    localStorage.getItem('SearchParam') ?? '',
+  );
 
-  async getPlanets(searchParam: string) {
-    this.setState({
-      searchParam,
-      planets: [],
-    });
-  }
+  useEffect(() => {
+    setIsLoading(true);
+    void (async () => {
+      localStorage.setItem('SearchParam', searchParam);
+      setPlanets(await starWarsApi.getPlanets(pageNumber, searchParam));
+      setIsLoading(false);
+    })();
+  }, [pageNumber, searchParam]);
 
-  async componentDidUpdate(
-    prevProps: Readonly<Props>,
-    prevState: Readonly<State>,
-  ) {
-    if (
-      this.state.searchParam !== prevState.searchParam &&
-      !this.state.planets.length
-    ) {
-      localStorage.setItem('SearchParam', this.state.searchParam);
-      const planets = await starWarsApi.getPlanets(
-        this.state.pageNumber,
-        this.state.searchParam,
-      );
-      this.setState({
-        planets,
-      });
-    }
-  }
+  useEffect(() => {
+    if (isErrorButtonClicked) throw new Error('Error button clicked');
+  }, [isErrorButtonClicked]);
 
-  async componentDidMount() {
-    this.setState({
-      planets: await starWarsApi.getPlanets(
-        this.state.pageNumber,
-        this.state.searchParam,
-      ),
-    });
-  }
-
-  render(): React.ReactNode {
-    if (this.state.isErrorButtonClicked)
-      throw new Error('Error button clicked');
-
-    return (
-      <main className="page-content">
-        <SearchField
-          onSearch={this.getPlanets.bind(this)}
-          disabled={!this.state.planets.length}
+  return (
+    <main className="page-content">
+      <SearchField onSearch={setSearchParam} disabled={isLoading} />
+      {isLoading ? (
+        <TailSpin
+          height="80"
+          width="80"
+          color="#feffb5"
+          radius="1"
+          wrapperStyle={{ margin: '0 auto' }}
+          visible={true}
         />
-        {this.state.planets.length ? (
-          <SearchContent planets={this.state.planets} />
-        ) : (
-          <TailSpin
-            height="80"
-            width="80"
-            color="#feffb5"
-            radius="1"
-            wrapperStyle={{ margin: '0 auto' }}
-            visible={true}
-          />
-        )}
-        <Button
-          className="error-button"
-          onClick={() =>
-            this.setState({
-              isErrorButtonClicked: true,
-            })
-          }
-        >
-          throw error
-        </Button>
-      </main>
-    );
-  }
-}
+      ) : (
+        <SearchContent planets={planets} />
+      )}
+      <Button
+        className="error-button"
+        onClick={() => setIsErrorButtonClicked(true)}
+      >
+        throw error
+      </Button>
+    </main>
+  );
+};
