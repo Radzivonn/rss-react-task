@@ -1,10 +1,10 @@
 import React, { FC } from 'react';
-import { Main } from '../pages/Main';
+import { Outlet } from 'react-router-dom';
 
 export const Layout: FC = () => {
   return (
     <>
-      <Main />
+      <Outlet />
     </>
   );
 };

@@ -7,11 +7,12 @@ import { Props } from './types';
 import { TailSpin } from 'react-loader-spinner';
 import { Planet } from '../API/types';
 import { Pagination } from '../components/pagination/Pagination';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
 export const Main: FC<Props> = () => {
+  const [searchParams] = useSearchParams();
   const [isErrorButtonClicked, setIsErrorButtonClicked] = useState(false);
   const [planets, setPlanets] = useState<Planet[]>([]);
-  const [pageNumber, setPageNumber] = useState(1);
   const [pagesAmount, setPagesAmount] = useState(starWarsApi.pagesAmount);
   const [isLoading, setIsLoading] = useState(true);
   const [searchParam, setSearchParam] = useState(
@@ -20,13 +21,20 @@ export const Main: FC<Props> = () => {
 
   useEffect(() => {
     setIsLoading(true);
+    localStorage.setItem('SearchParam', searchParam);
+
     void (async () => {
-      localStorage.setItem('SearchParam', searchParam);
-      setPlanets(await starWarsApi.getPlanets(pageNumber, searchParam));
+      setPlanets(
+        await starWarsApi.getPlanets(
+          searchParams.get('page') ?? '1',
+          searchParam,
+        ),
+      );
+
       setPagesAmount(starWarsApi.pagesAmount);
       setIsLoading(false);
     })();
-  }, [pageNumber, searchParam]);
+  }, [searchParams, searchParam]);
 
   useEffect(() => {
     if (isErrorButtonClicked) throw new Error('Error button clicked');
@@ -48,9 +56,8 @@ export const Main: FC<Props> = () => {
         <>
           <SearchContent planets={planets} />
           <Pagination
-            currentPage={pageNumber}
+            currentPage={Number(searchParams.get('page'))}
             pagesAmount={pagesAmount}
-            switchPage={setPageNumber}
           />
         </>
       )}
@@ -60,6 +67,7 @@ export const Main: FC<Props> = () => {
       >
         throw error
       </Button>
+      <Outlet />
     </main>
   );
 };

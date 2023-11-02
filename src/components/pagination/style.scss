@@ -11,9 +11,12 @@
   justify-content: center;
   width: 20px;
   height: 20px;
-  color: var(--accent-color-1-shadow-1);
   cursor: pointer;
   &.active-page {
     border: 1px solid var(--accent-color-1-shadow-1);
+  }
+  & * {
+    text-decoration: none;
+    color: var(--accent-color-1-shadow-1);
   }
 }

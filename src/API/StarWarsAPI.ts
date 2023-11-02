@@ -12,7 +12,7 @@ class StarWarsAPI {
   }
 
   getPlanets = async (
-    pageNumber: number,
+    pageNumber: string,
     searchParam?: string,
   ): Promise<Planet[]> => {
     const response = await axios
