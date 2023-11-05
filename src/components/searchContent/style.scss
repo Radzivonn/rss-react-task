@@ -2,19 +2,10 @@
   width: 90%;
   height: auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(150px, 220px));
   grid-template-rows: auto;
   gap: 20px 15px;
   align-self: center;
-  justify-items: center;
+  justify-content: center;
   margin-top: 40px;
-  @media (min-width: 1200px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (max-width: 850px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
 }
