@@ -30,7 +30,7 @@ class StarWarsAPI {
     return response.data.results;
   };
 
-  getPlanet = async (planetNumber: number): Promise<Planet> => {
+  getPlanet = async (planetNumber: string): Promise<Planet> => {
     const response = await axios
       .get(`${this.URL}/planets/${planetNumber}`)
       .catch((error) => {

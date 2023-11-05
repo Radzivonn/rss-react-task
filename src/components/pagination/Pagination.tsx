@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import './style.scss';
 import { Props } from './types';
 import { Link } from 'react-router-dom';
-import { routes } from '../../router/routes';
 
 export const Pagination: FC<Props> = ({ currentPage, pagesAmount }) => {
   return (
@@ -14,7 +13,7 @@ export const Pagination: FC<Props> = ({ currentPage, pagesAmount }) => {
             currentPage === index + 1 ? 'active-page' : ''
           }`}
         >
-          <Link to={`${routes.main}?page=${index + 1}`}> {index + 1} </Link>
+          <Link to={`/${index + 1}`}> {index + 1} </Link>
         </li>
       ))}
     </ul>

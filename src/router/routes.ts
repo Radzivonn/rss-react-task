@@ -1,5 +1,6 @@
 type Routes = Record<string, string>;
 
 export const routes: Routes = {
-  main: '/',
+  main: ':page',
+  details: 'details/:id',
 };
