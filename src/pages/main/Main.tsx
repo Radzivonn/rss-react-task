@@ -12,7 +12,7 @@ import { Outlet, useNavigate, useParams } from 'react-router-dom';
 export const Main: FC<Props> = () => {
   const { page, id } = useParams();
   const navigate = useNavigate();
-  const [isErrorButtonClicked, setIsErrorButtonClicked] = useState(false);
+  const [isErrorOccurred, setIsErrorOccurred] = useState(false);
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [pagesAmount, setPagesAmount] = useState(starWarsApi.pagesAmount);
   const [isLoading, setIsLoading] = useState(true);
@@ -25,16 +25,19 @@ export const Main: FC<Props> = () => {
     localStorage.setItem('SearchParam', searchParam);
 
     void (async () => {
-      setPlanets(await starWarsApi.getPlanets(page as string, searchParam));
-
-      setPagesAmount(starWarsApi.pagesAmount);
-      setIsLoading(false);
+      try {
+        setPlanets(await starWarsApi.getPlanets(page as string, searchParam));
+        setPagesAmount(starWarsApi.pagesAmount);
+        setIsLoading(false);
+      } catch (error) {
+        setIsErrorOccurred(true);
+      }
     })();
   }, [page, searchParam]);
 
   useEffect(() => {
-    if (isErrorButtonClicked) throw new Error('Error button clicked');
-  }, [isErrorButtonClicked]);
+    if (isErrorOccurred) throw new Error('Error button clicked');
+  }, [isErrorOccurred]);
 
   const onCardClick = (planetId: string) => {
     if (id === planetId) navigate(`/${page}`);
@@ -60,10 +63,7 @@ export const Main: FC<Props> = () => {
             <Pagination currentPage={Number(page)} pagesAmount={pagesAmount} />
           </>
         )}
-        <Button
-          className="red-button"
-          onClick={() => setIsErrorButtonClicked(true)}
-        >
+        <Button className="red-button" onClick={() => setIsErrorOccurred(true)}>
           throw error
         </Button>
       </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Planet } from './types';
-import { PLANETS_PER_PAGE } from '../constants/constants';
+import { MAX_ITEMS_PER_PAGE } from '../constants/constants';
 
 class StarWarsAPI {
   URL: string;
@@ -23,10 +23,9 @@ class StarWarsAPI {
         },
       })
       .catch((error) => {
-        console.error(error);
         throw new Error(error);
       });
-    this.pagesAmount = Math.ceil(response.data.count / PLANETS_PER_PAGE);
+    this.pagesAmount = Math.ceil(response.data.count / MAX_ITEMS_PER_PAGE);
     return response.data.results;
   };
 
@@ -34,7 +33,6 @@ class StarWarsAPI {
     const response = await axios
       .get(`${this.URL}/planets/${planetNumber}`)
       .catch((error) => {
-        console.error(error);
         throw new Error(error);
       });
     return response.data;
