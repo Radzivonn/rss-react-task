@@ -1,10 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import './style.scss';
 import { Card } from '../card/Card';
 import { Props } from './types';
 import getPlanetIdFromUrl from '../../helpers/getPlanetIdFromUrl';
+import { AppContext } from '../../context/AppContext';
 
-export const SearchContent: FC<Props> = ({ planets, onCardClick }) => {
+export const SearchContent: FC<Props> = ({ onCardClick }) => {
+  const { planets } = useContext(AppContext);
+
   if (planets.length) {
     return (
       <section className="search-content">

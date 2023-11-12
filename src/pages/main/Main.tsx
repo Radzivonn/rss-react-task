@@ -8,6 +8,7 @@ import { TailSpin } from 'react-loader-spinner';
 import { Planet } from '../../API/types';
 import { Pagination } from '../../components/pagination/Pagination';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { AppContext } from '../../context/AppContext';
 
 export const Main: FC<Props> = () => {
   const { page, id } = useParams();
@@ -45,29 +46,43 @@ export const Main: FC<Props> = () => {
   };
 
   return (
-    <main className="page-content">
-      <div className="main-content">
-        <SearchField onSearch={setSearchParam} disabled={isLoading} />
-        {isLoading ? (
-          <TailSpin
-            height="80"
-            width="80"
-            color="#feffb5"
-            radius="1"
-            wrapperStyle={{ margin: '0 auto' }}
-            visible={true}
-          />
-        ) : (
-          <>
-            <SearchContent planets={planets} onCardClick={onCardClick} />
-            <Pagination currentPage={Number(page)} pagesAmount={pagesAmount} />
-          </>
-        )}
-        <Button className="red-button" onClick={() => setIsErrorOccurred(true)}>
-          throw error
-        </Button>
-      </div>
-      <Outlet />
-    </main>
+    <AppContext.Provider
+      value={{
+        searchParam,
+        setSearchParam,
+        planets,
+      }}
+    >
+      <main className="page-content">
+        <div className="main-content">
+          <SearchField disabled={isLoading} />
+          {isLoading ? (
+            <TailSpin
+              height="80"
+              width="80"
+              color="#feffb5"
+              radius="1"
+              wrapperStyle={{ margin: '0 auto' }}
+              visible={true}
+            />
+          ) : (
+            <>
+              <SearchContent onCardClick={onCardClick} />
+              <Pagination
+                currentPage={Number(page)}
+                pagesAmount={pagesAmount}
+              />
+            </>
+          )}
+          <Button
+            className="red-button"
+            onClick={() => setIsErrorOccurred(true)}
+          >
+            throw error
+          </Button>
+        </div>
+        <Outlet />
+      </main>
+    </AppContext.Provider>
   );
 };
