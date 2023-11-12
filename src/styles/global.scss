@@ -1,0 +1,110 @@
+@use '../styles/mixins.scss' as *;
+
+body {
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+html {
+  background-color: var(--main-color-3);
+  @include font-text-regular;
+  color: var(--main-color-2-default);
+  margin-right: calc(100% - 100vw);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+h1 {
+  margin: auto;
+}
+
+.page-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-grow: 1;
+  padding: 15px;
+
+  &--scroll-block {
+    overflow: hidden;
+  }
+
+  @media (max-width: 390px) {
+    padding: 5px;
+  }
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  width: 70%;
+  @media (max-width: 850px) {
+    width: 60%;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+.icon {
+  fill: currentColor;
+  transition: fill 0.2s ease;
+}
+
+button {
+  width: 150px;
+  height: 35px;
+  background-color: var(--accent-color-1-default);
+  border: 2px var(--accent-color-1-shadow-1) solid;
+  border-radius: 4px;
+  color: var(--main-color-2-default);
+  transition: all 0.2s ease 0s;
+  cursor: pointer;
+  @include font-text-regular;
+  &:hover {
+    box-shadow: 0px 0px 12px 0px rgb(203 231 255 / 60%);
+  }
+  &:active {
+    box-shadow: 0px 0px 0px 0px;
+  }
+  &:disabled {
+    cursor: default;
+    box-shadow: 0px 0px 0px 0px;
+  }
+}
+
+input {
+  height: 40px;
+  background-color: var(--accent-color-1-default);
+  border: 2px var(--accent-color-1-shadow-1) solid;
+  border-radius: 4px;
+  color: var(--main-color-2-default);
+  transition: all 0.2s ease 0s;
+  @include font-text-regular;
+  &:hover,
+  &:focus {
+    box-shadow: 0px 0px 15px 0px rgb(203 231 255 / 60%);
+  }
+  @media (max-width: 390px) {
+    width: 150px;
+  }
+}

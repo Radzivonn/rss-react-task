@@ -1,0 +1,9 @@
+.search-field {
+  display: flex;
+  gap: 15px;
+  align-self: center;
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+  }
+}
