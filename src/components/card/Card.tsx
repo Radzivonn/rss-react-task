@@ -11,6 +11,7 @@ export const Card: FC<Props> = ({ name, id, description, onCardClick }) => {
     <div
       className={`content-card ${currentId === id ? 'pressed' : ''}`}
       onClick={onCardClick}
+      data-testid="card"
     >
       <img className="card-image" src={imagePath} alt="planet" />
       <h3 className="card-name"> {name} </h3>

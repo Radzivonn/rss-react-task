@@ -7,12 +7,11 @@ import { Props } from './types';
 import { TailSpin } from 'react-loader-spinner';
 import { Planet } from '../../API/types';
 import { Pagination } from '../../components/pagination/Pagination';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
 
 export const Main: FC<Props> = () => {
-  const { page, id } = useParams();
-  const navigate = useNavigate();
+  const { page } = useParams();
   const [isErrorOccurred, setIsErrorOccurred] = useState(false);
   const [planets, setPlanets] = useState<Planet[]>([]);
   const [pagesAmount, setPagesAmount] = useState(starWarsApi.pagesAmount);
@@ -40,11 +39,6 @@ export const Main: FC<Props> = () => {
     if (isErrorOccurred) throw new Error('Error button clicked');
   }, [isErrorOccurred]);
 
-  const onCardClick = (planetId: string) => {
-    if (id === planetId) navigate(`/${page}`);
-    else navigate(`details/${planetId}`);
-  };
-
   return (
     <AppContext.Provider
       value={{
@@ -67,7 +61,7 @@ export const Main: FC<Props> = () => {
             />
           ) : (
             <>
-              <SearchContent onCardClick={onCardClick} />
+              <SearchContent />
               <Pagination
                 currentPage={Number(page)}
                 pagesAmount={pagesAmount}

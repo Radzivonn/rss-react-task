@@ -10,6 +10,7 @@ const AppRouter = () => {
       <Route path={routes.main} element={<Main />}>
         <Route path={routes.details} element={<Details />} />
       </Route>
+      {/* <Route path="/*" element={<NotFound />} /> */}
       <Route path="*" element={<Navigate to="/1" replace />} />
     </Routes>
   );
