@@ -14,3 +14,8 @@ export interface Planet {
   created: string;
   edited: string;
 }
+
+export interface getPlanetsQueryParams {
+  pageNumber?: string;
+  searchParam?: string;
+}

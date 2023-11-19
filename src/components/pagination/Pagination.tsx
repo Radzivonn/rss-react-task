@@ -1,16 +1,18 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import './style.scss';
-import { Props } from './types';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-export const Pagination: FC<Props> = ({ currentPage, pagesAmount }) => {
+export const Pagination: FC = () => {
+  const { page } = useParams();
+  const [pagesAmount] = useState(6);
+
   return (
     <ul className="pagination">
       {[...Array(pagesAmount)].map((item, index) => (
         <li
           key={index}
           className={`page-number ${
-            currentPage === index + 1 ? 'active-page' : ''
+            Number(page) === index + 1 ? 'active-page' : ''
           }`}
         >
           <Link data-testid="pagination-button" to={`/${index + 1}`}>
