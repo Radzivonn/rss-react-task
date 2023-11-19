@@ -14,7 +14,6 @@ export const SearchContent: FC = () => {
   const onCardClick = (planetId: string) => {
     if (id === planetId) navigate(`/${page}`);
     else navigate(`details/${planetId}`);
-    console.log(window.location.toString().slice(-1));
   };
 
   if (planets.length) {

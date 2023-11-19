@@ -5,12 +5,12 @@ import { MemoryRouter } from 'react-router-dom';
 import {
   mockPlanetData,
   mockPlanetDetailsData,
-} from '../../../test/mock/mockData';
-import { Card } from '../Card';
-import { AppContext } from '../../../context/AppContext';
-import { SearchContent } from '../../searchContent/SearchContent';
+} from '../../test/mock/mockData';
+import { Card } from './Card';
+import { AppContext } from '../../context/AppContext';
+import { SearchContent } from '../searchContent/SearchContent';
 import axios from 'axios';
-import { Details } from '../../../pages/details/Details';
+import { Details } from '../../pages/details/Details';
 
 describe('App test', () => {
   it('Ensure that the card component renders the relevant card data', () => {

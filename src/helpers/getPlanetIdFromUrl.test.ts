@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import getPlanetIdFromUrl from '../getPlanetIdFromUrl';
+import getPlanetIdFromUrl from './getPlanetIdFromUrl';
 
 describe('getPlanetIdFromUrl helper tests', () => {
   it('test', () => {
