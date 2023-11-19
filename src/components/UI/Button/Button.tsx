@@ -6,7 +6,7 @@ export const Button: FC<ComponentProps<'button'>> = ({
   ...props
 }) => {
   return (
-    <button {...props} type="button">
+    <button {...props} type="button" role="button">
       {children}
     </button>
   );

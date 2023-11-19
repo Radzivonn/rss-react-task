@@ -28,7 +28,6 @@ class StarWarsAPI {
     this.pagesAmount = Math.ceil(response.data.count / MAX_ITEMS_PER_PAGE);
     return response.data.results;
   };
-
   getPlanet = async (planetNumber: string): Promise<Planet> => {
     const response = await axios
       .get(`${this.URL}/planets/${planetNumber}`)

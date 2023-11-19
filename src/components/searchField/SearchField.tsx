@@ -1,24 +1,32 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import './style.scss';
 import { Input } from '../UI/Input/Input';
 import { Button } from '../UI/Button/Button';
 import { Props } from './types';
+import { AppContext } from '../../context/AppContext';
+import { useNavigate } from 'react-router-dom';
+import { DEFAULT_PAGE_NUMBER } from '../../constants/constants';
 
 export const SearchField: FC<Props> = ({ ...props }) => {
-  const [searchParam, setSearchParam] = useState(
-    localStorage.getItem('SearchParam') ?? '',
-  );
+  const { searchParam, setSearchParam } = useContext(AppContext);
+  const [inputValue, setInputValue] = useState(searchParam);
+  const navigate = useNavigate();
 
   return (
     <section className="search-field">
       <Input
         type="text"
-        value={searchParam}
-        onChange={(e) => setSearchParam(e.target.value.trim())}
+        defaultValue={inputValue}
+        onChange={(e) => setInputValue(e.target.value.trim())}
+        data-testid="search-input"
       />
       <Button
-        onClick={() => props.onSearch(searchParam)}
+        onClick={() => {
+          setSearchParam(inputValue);
+          navigate(`/${DEFAULT_PAGE_NUMBER}`);
+        }}
         disabled={props.disabled}
+        data-testid="search-button"
       >
         search
       </Button>

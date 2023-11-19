@@ -1,10 +1,21 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import './style.scss';
 import { Card } from '../card/Card';
-import { Props } from './types';
 import getPlanetIdFromUrl from '../../helpers/getPlanetIdFromUrl';
+import { AppContext } from '../../context/AppContext';
+import { useNavigate, useParams } from 'react-router-dom';
+import { NOT_FOUND_REQUEST_MESSAGE } from '../../constants/constants';
 
-export const SearchContent: FC<Props> = ({ planets, onCardClick }) => {
+export const SearchContent: FC = () => {
+  const { page, id } = useParams();
+  const navigate = useNavigate();
+  const { planets } = useContext(AppContext);
+
+  const onCardClick = (planetId: string) => {
+    if (id === planetId) navigate(`/${page}`);
+    else navigate(`details/${planetId}`);
+  };
+
   if (planets.length) {
     return (
       <section className="search-content">
@@ -21,5 +32,5 @@ export const SearchContent: FC<Props> = ({ planets, onCardClick }) => {
         ))}
       </section>
     );
-  } else return <h1>nothing found for this request</h1>;
+  } else return <h1>{NOT_FOUND_REQUEST_MESSAGE}</h1>;
 };

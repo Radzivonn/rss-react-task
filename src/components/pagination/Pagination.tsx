@@ -13,7 +13,9 @@ export const Pagination: FC<Props> = ({ currentPage, pagesAmount }) => {
             currentPage === index + 1 ? 'active-page' : ''
           }`}
         >
-          <Link to={`/${index + 1}`}> {index + 1} </Link>
+          <Link data-testid="pagination-button" to={`/${index + 1}`}>
+            {index + 1}
+          </Link>
         </li>
       ))}
     </ul>

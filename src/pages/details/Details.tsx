@@ -30,7 +30,7 @@ export const Details = () => {
       visible={true}
     />
   ) : (
-    <aside className="details-block">
+    <aside className="details-block" data-testid="details">
       <h2> name: {planet?.name} </h2>
       <p> climate: {planet?.climate} </p>
       <p> terrain: {planet?.terrain} </p>
