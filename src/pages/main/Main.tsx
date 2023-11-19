@@ -7,8 +7,9 @@ import { Props } from './types';
 import { TailSpin } from 'react-loader-spinner';
 import { Planet } from '../../API/types';
 import { Pagination } from '../../components/pagination/Pagination';
-import { Outlet, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import { AppContext } from '../../context/AppContext';
+import { DEFAULT_PAGE_NUMBER } from '../../constants/constants';
 
 export const Main: FC<Props> = () => {
   const { page } = useParams();
@@ -19,8 +20,13 @@ export const Main: FC<Props> = () => {
   const [searchParam, setSearchParam] = useState(
     localStorage.getItem('SearchParam') ?? '',
   );
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (page === undefined) {
+      navigate(`/${DEFAULT_PAGE_NUMBER}`, { replace: true });
+    }
+
     setIsLoading(true);
     localStorage.setItem('SearchParam', searchParam);
 
