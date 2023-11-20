@@ -26,7 +26,7 @@ export const planetsApi = createApi({
       ],
     }),
     getPlanet: builder.query<Planet, string>({
-      query: (number) => `planets/${number}`,
+      query: (number) => `/${number}`,
       providesTags: () => [
         {
           type: 'Planet',
