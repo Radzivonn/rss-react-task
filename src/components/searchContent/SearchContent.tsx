@@ -14,8 +14,11 @@ export const SearchContent: FC = () => {
   const searchParam = useTypedSelector(
     (state) => state.searchReducer.searchParam,
   );
+  const isLoading = useTypedSelector(
+    (state) => state.mainLoaderReducer.isLoading,
+  );
 
-  const { isFetching, data } = useGetPlanetsQuery({
+  const { data } = useGetPlanetsQuery({
     pageNumber: page,
     searchParam,
   });
@@ -25,7 +28,7 @@ export const SearchContent: FC = () => {
     else navigate(`details/${planetId}`);
   };
 
-  if (isFetching)
+  if (isLoading)
     return (
       <TailSpin
         height="80"

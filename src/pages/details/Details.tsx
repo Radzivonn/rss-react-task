@@ -4,11 +4,15 @@ import { TailSpin } from 'react-loader-spinner';
 import { Button } from '../../components/UI/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetPlanetQuery } from '../../API/API';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 export const Details = () => {
   const { page, id } = useParams();
   const navigate = useNavigate();
-  const { isLoading, data: planet } = useGetPlanetQuery(id ?? '');
+  const { data: planet } = useGetPlanetQuery(id ?? '');
+  const isLoading = useTypedSelector(
+    (state) => state.detailsLoaderReducer.isLoading,
+  );
 
   if (isLoading)
     return (
