@@ -14,15 +14,11 @@ export const SearchContent: FC = () => {
   const searchParam = useTypedSelector(
     (state) => state.searchReducer.searchParam,
   );
-  const { isFetching, data } = useGetPlanetsQuery(
-    {
-      pageNumber: page,
-      searchParam,
-    },
-    {
-      refetchOnMountOrArgChange: true,
-    },
-  );
+
+  const { isFetching, data } = useGetPlanetsQuery({
+    pageNumber: page,
+    searchParam,
+  });
 
   const onCardClick = (planetId: string) => {
     if (id === planetId) navigate(`/${page}`);
