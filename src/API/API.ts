@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Planet, getPlanetsQueryParams } from './types';
+import { BASE_URL } from '../constants/constants';
 
 interface apiResponseType {
   results: Planet[];
@@ -8,11 +9,16 @@ interface apiResponseType {
 export const planetsApi = createApi({
   reducerPath: 'planetsApi',
   tagTypes: ['Planets', 'Planet'],
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://swapi.dev/api/planets' }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getPlanets: builder.query<apiResponseType, getPlanetsQueryParams>({
-      query: ({ pageNumber, searchParam }) =>
-        `?page=${pageNumber}&search=${searchParam}`,
+      query: ({ pageNumber, searchParam }) => ({
+        url: '/',
+        params: {
+          page: pageNumber,
+          search: searchParam,
+        },
+      }),
       providesTags: () => [
         {
           type: 'Planets',
