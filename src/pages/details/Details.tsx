@@ -5,14 +5,15 @@ import { Button } from '../../components/UI/Button/Button';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useGetPlanetQuery } from '../../API/API';
 import { useTypedSelector } from '../../hooks/useTypedSelector';
+import { NOT_FOUND_REQUEST_MESSAGE } from '../../constants/constants';
 
 export const Details = () => {
   const { page, id } = useParams();
   const navigate = useNavigate();
-  const { data: planet } = useGetPlanetQuery(id ?? '');
   const isLoading = useTypedSelector(
     (state) => state.detailsLoaderReducer.isLoading,
   );
+  const { data: planet } = useGetPlanetQuery(id ?? '');
 
   if (isLoading)
     return (
@@ -25,6 +26,7 @@ export const Details = () => {
         visible={true}
       />
     );
+  else if (planet === undefined) return <h1>{NOT_FOUND_REQUEST_MESSAGE}</h1>;
   else
     return (
       <aside className="details-block" data-testid="details">
