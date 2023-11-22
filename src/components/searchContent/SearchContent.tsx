@@ -39,9 +39,8 @@ export const SearchContent: FC = () => {
         visible={true}
       />
     );
-  else if (data?.results?.length === 0)
-    return <h1>{NOT_FOUND_REQUEST_MESSAGE}</h1>;
-  else if (data?.results)
+  else if (data === undefined) return <h1>{NOT_FOUND_REQUEST_MESSAGE}</h1>;
+  else if (data.results)
     return (
       <section className="search-content">
         {data.results.map((planet) => (
