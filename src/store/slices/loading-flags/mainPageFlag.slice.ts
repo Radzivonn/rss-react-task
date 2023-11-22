@@ -5,7 +5,7 @@ interface FlagState {
   isLoading: boolean;
 }
 
-const initialState: FlagState = {
+export const initialState: FlagState = {
   isLoading: false,
 };
 
@@ -26,6 +26,12 @@ export const mainFlagSlice = createSlice({
     );
     builder.addMatcher(
       planetsApi.endpoints.getPlanets.matchFulfilled,
+      (state) => {
+        state.isLoading = false;
+      },
+    );
+    builder.addMatcher(
+      planetsApi.endpoints.getPlanets.matchRejected,
       (state) => {
         state.isLoading = false;
       },
