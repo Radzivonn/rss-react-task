@@ -1,16 +1,21 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './style.scss';
 import { Input } from '../UI/Input/Input';
 import { Button } from '../UI/Button/Button';
 import { Props } from './types';
-import { AppContext } from '../../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { DEFAULT_PAGE_NUMBER } from '../../constants/constants';
+import { actions } from '../../store/slices/search/search.slice';
+import { useTypedSelector } from '../../hooks/useTypedSelector';
 
 export const SearchField: FC<Props> = ({ ...props }) => {
-  const { searchParam, setSearchParam } = useContext(AppContext);
+  const searchParam = useTypedSelector(
+    (state) => state.searchReducer.searchParam,
+  );
   const [inputValue, setInputValue] = useState(searchParam);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <section className="search-field">
@@ -22,7 +27,7 @@ export const SearchField: FC<Props> = ({ ...props }) => {
       />
       <Button
         onClick={() => {
-          setSearchParam(inputValue);
+          dispatch(actions.setSearchParam(inputValue));
           navigate(`/${DEFAULT_PAGE_NUMBER}`);
         }}
         disabled={props.disabled}
