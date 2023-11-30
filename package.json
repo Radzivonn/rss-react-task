@@ -1,11 +1,11 @@
 {
-  "name": "react-messenger",
+  "name": "rss-react-task",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "next dev",
+    "build": "next build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "format:fix": "prettier --write src/**/*.ts{,x}",
     "test": "vitest",
@@ -15,11 +15,11 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "axios": "^1.5.1",
+    "next": "^14.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-loader-spinner": "^5.4.5",
-    "react-redux": "^8.1.3",
-    "react-router-dom": "^6.14.2"
+    "react-redux": "^8.1.3"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.17.0",
